@@ -1,8 +1,9 @@
 const { response } = require("express");
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
-app.use(express.static("build"));
+app.use(express.static("public"));
 app.use(cors());
 app.use(express.json());
 
@@ -26,6 +27,10 @@ let notes = [
     important: true,
   },
 ];
+
+app.get("/api/notes", (request, response) => {
+  response.json(notes);
+});
 
 app.get("/api/notes/:id", (request, response) => {
   const id = +request.params.id;
